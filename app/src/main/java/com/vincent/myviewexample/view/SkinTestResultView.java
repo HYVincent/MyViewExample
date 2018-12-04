@@ -178,18 +178,18 @@ public class SkinTestResultView extends View {
             float mProgressWidth = (mViewWidth - mStartX - mProgressMarginRight - mProgressMargin)/2;
             float mStartY = mCircleY + DpUtil.dp2px(mContext,30);
 //            waterPoints.clear();
-            drawItemProgressCurve(canvas,mTopTag,waterRatio,mProgressWidth,mStartX,mStartY,waterPoints);
+            drawItemProgressCurve(canvas,mTopTag,mTempWaterRatio,waterRatio,mProgressWidth,mStartX,mStartY,waterPoints);
 
             mStartX = mStartX + mProgressWidth + mProgressMargin/2;
 //            whitePoints.clear();
-            drawItemProgressCurve(canvas,mBottomTag,whiteRatio,mProgressWidth,mStartX,mStartY,whitePoints);
+            drawItemProgressCurve(canvas,mBottomTag,mTempWhiteRatio,whiteRatio,mProgressWidth,mStartX,mStartY,whitePoints);
 
             mStartX = mRightTagTextX - DpUtil.dp2px(mContext,2);
             mStartY = mStartY + DpUtil.dp2px(mContext,60);
-            drawItemProgressCurve(canvas,mLeftTag,oilRatio,mProgressWidth,mStartX,mStartY,oilPoints);
+            drawItemProgressCurve(canvas,mLeftTag,mTempOilRatio,oilRatio,mProgressWidth,mStartX,mStartY,oilPoints);
 
             mStartX = mStartX + mProgressWidth + mProgressMargin/2;
-            drawItemProgressCurve(canvas,mLeftTag,mTempElasticityRatio,mProgressWidth,mStartX,mStartY,elasticityPoints);
+            drawItemProgressCurve(canvas,mLeftTag,mTempElasticityRatio,elasticityRatio,mProgressWidth,mStartX,mStartY,elasticityPoints);
         }
     }
 
@@ -450,9 +450,16 @@ public class SkinTestResultView extends View {
 
     /**
      * 绘制各项三阶贝塞尔进度曲线
-     * @param canvas
+     * @param canvas 画布
+     * @param tagText 目标文字
+     * @param ratio 临时比例值
+     * @param targetRatio 实际比例值
+     * @param mProgressWidth 进度在View上的实际宽度
+     * @param mStartX 起点x坐标
+     * @param mStartY 起点y坐标
+     * @param pathPoints 路径点集合
      */
-    private void drawItemProgressCurve(Canvas canvas,String tagText,float ratio,float mProgressWidth,float mStartX,float mStartY,List<PointF> pathPoints) {
+    private void drawItemProgressCurve(Canvas canvas,String tagText,float ratio,float targetRatio,float mProgressWidth,float mStartX,float mStartY,List<PointF> pathPoints) {
         float mTempProgressCircleX = 0.0f;
         float mTempProgressCircleY = 0.0f;
         float mEndX = mStartX + mProgressWidth;
@@ -468,22 +475,23 @@ public class SkinTestResultView extends View {
                 mEndY,mProgressBgStartColor,mProgressBgEndColor,Shader.TileMode.CLAMP);
         mItemProgrfessPaint.setShader(lg);
         canvas.drawPath(mBgProgressPath,mItemProgrfessPaint);
+        //计算真实比例
         PathMeasure pathMeasure = new PathMeasure(mBgProgressPath,false);
-
         float length = pathMeasure.getLength();
-        for (int i = 0;i<length;i++){
+        /*for (int i = 0;i<length;i++){
             float[] pos = new float[2];
             float[] tan = new float[2];
             pathMeasure.getPosTan(i,pos,tan);
             pathPoints.add(new PointF(pos[0],pos[1]));
-        }
-        if(mTempProgressCircleX == 0){
-            mTempProgressCircleX = pathPoints.get(0).x;
-            mTempProgressCircleY = pathPoints.get(0).y;
-        }
-        //TODO 这里强制写为比例值 如果添加动画则需要去掉这里
-        mTempProgressCircleX = pathPoints.get((int) (pathPoints.size() * ratio)).x;
-        mTempProgressCircleY = pathPoints.get((int) (pathPoints.size() * ratio)).y;
+        }*/
+        float realLength = length * targetRatio;
+        float[] pos = new float[2];
+        float[] tan = new float[2];
+        pathMeasure.getPosTan(realLength * ratio,pos,tan);
+//        mTempProgressCircleX = pathPoints.get((int) (pathPoints.size() * ratio)).x;
+//        mTempProgressCircleY = pathPoints.get((int) (pathPoints.size() * ratio)).y;
+        mTempProgressCircleX = pos[0];
+        mTempProgressCircleY = pos[1];
         RadialGradient lgCircle = new RadialGradient(mTempProgressCircleX,mTempProgressCircleY,mTargetCircleRadius*3/4,mEndColor,mStartColor,Shader.TileMode.CLAMP);
         mTargetCirclePaint.setShader(lgCircle);
         mTargetCirclePaint.setStyle(Paint.Style.FILL);
@@ -509,7 +517,7 @@ public class SkinTestResultView extends View {
 
     private void startAnimDraw(){
 // mCurrentCircleRadius 表示为插值器在使用的值
-        progressAnim = ObjectAnimator.ofFloat(this, "mTempProgress", 0, mCircleRadius);
+        progressAnim = ObjectAnimator.ofFloat(this, "mTempProgress", 0, 1.0f);
         progressAnim.setDuration(800);
         progressAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -519,13 +527,8 @@ public class SkinTestResultView extends View {
                 mTempWhiteRatio = whiteRatio * mTempProgress;
                 mTempOilRatio = oilRatio * mTempProgress;
                 mTempElasticityRatio = elasticityRatio * mTempProgress;
+                Log.e(TAG, "startAnimDraw -> onAnimationUpdate: " + mTempProgress );
                 invalidate();
-            }
-        });
-        progressAnim.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                animation.start();
             }
         });
     }

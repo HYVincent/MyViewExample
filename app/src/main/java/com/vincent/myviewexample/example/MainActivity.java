@@ -97,9 +97,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 //        findViewById(R.id.btn_water).performClick();
-        startActivity(new Intent(MainActivity.this,Test3Activity.class));
+//        startActivity(new Intent(MainActivity.this,Test3Activity.class));
 //        startActivity(new Intent(MainActivity.this,Test1Activity.class));
 //        startActivity(new Intent(MainActivity.this,WaterActivity.class));
+        startActivity(new Intent(MainActivity.this,Test4Activity.class));
     }
 
     private void initProgressData(ProgressView progressView) {
