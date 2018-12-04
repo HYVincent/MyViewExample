@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/et_input_number"
+        android:inputType="number"
+        android:hint="配置了新的焦点颜色和下划线颜色"
+        android:theme="@style/MyEditText"
+        android:textCursorDrawable="@drawable/edit_cursor_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <com.vincent.myviewexample.view.TagTextView
+        android:id="@+id/tagTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <com.vincent.myviewexample.view.LineProgressView
+        android:layout_width="match_parent"
+        android:layout_height="3dp" />
+
+    <com.vincent.myviewexample.view.NumberView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/setting"
+            android:text="改变值"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/runing"
+            android:text="改变值"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <com.vincent.myviewexample.view.DynamicWave
+        android:id="@+id/dynamic_wave"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

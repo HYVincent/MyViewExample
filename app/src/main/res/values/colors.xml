@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+
+    <color name="color_green_a8edc5">#a8edc5</color>
+    <color name="color_gray_5d5f5e">#5d5f5e</color>
+    <color name="color_gray_d6d5d5">#d6d5d5</color>
+    <color name="color_gray_cccbcb">#cccbcb</color>
+    <color name="color_gray_6d6d6d">#6d6d6d</color>
+    <color name="color_gray_dcdcdc">#dcdcdc</color>
+    <color name="color_white_ffffff">#ffffff</color>
+    <color name="color_black_545454">#545454</color>
+
+    <color name="color_red_FF6347">#FF6347</color>
+    <color name="color_blue_7FABF2">#7FABF2</color>
+    <color name="color_blue_72adf8">#72adf8</color>
+    <color name="color_gray_B5B4B4">#B5B4B4</color>
+    <color name="color_gray_76879e">#76879e</color>
+    <color name="color_gray_8493a8">#8493a8</color>
+
+    <color name="color_green_03df1d">#03df1d</color>
+    <color name="color_gray_BDBDBD">#bdbdbd</color>
+    <color name="color_gray_919191">#919191</color>
+
+    <color name="color_black_000000">#000000</color>
+
+    <color name="color_yellow_F6AD42">#F6AD42</color>
+    <color name="color_gray_E7E4E4">#E7E4E4</color>
+
+    <color name="color_green_ff03e195">#ff03e195</color>
+    <color name="color_yellow_F1A604">#F1A604</color>
+
+    <color name="color_green_03E195">#03E195</color>
+    <color name="color_green_b4f4dc">#bef4dc</color>
+
+    <!--2018年12月3日11:01:32-->
+    <color name="color_red_c8148d">#c8148d</color>
+    <color name="color_red_e21493">#e21493</color>
+    <color name="color_purple_bf3ccf">#bf3ccf</color>
+    <color name="color_purple_ce72e4">#ce72e4</color>
+    <color name="color_purple_7a00ab">#7a00ab</color>
+    <color name="color_purple_17131a">#17131a</color>
+    <color name="color_red_d66fd9">#d66fd9</color>
+    <color name="color_purple_891247">#891247</color>
+
+
+</resources>

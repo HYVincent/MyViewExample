@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">MyViewExample</string>
+
+    <string name="string_add_device_config_hint_msg_1">Step 1: Start screening</string>
+    <string name="string_add_device_config_hint_msg_21">Step 2: Join the router</string>
+    <string name="string_add_device_config_hint_msg_22">This step takes about 1 to 3 minutes, please avoid the phone </string>
+    <string name="string_add_device_config_hint_msg_23">screen off during the process.</string>
+    <string name="string_add_device_config_hint_msg_3">Step 3: Making final configuration</string>
+
+    <string name="string_test">ffffffff\nffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff</string>
+
+</resources>
