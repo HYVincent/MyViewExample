@@ -12,4 +12,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <com.vincent.myviewexample.view.MyText
+        android:id="@+id/myTest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <com.vincent.myviewexample.view.CountDownTextView
+        android:id="@+id/count_down_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>

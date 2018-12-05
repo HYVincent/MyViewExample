@@ -14,16 +14,16 @@ import android.graphics.PointF;
 import android.graphics.RadialGradient;
 import android.graphics.Rect;
 import android.graphics.Shader;
+import android.graphics.Typeface;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import com.vincent.myviewexample.R;
 import com.vincent.myviewexample.bean.SkinTestResultBean;
-import com.vincent.myviewexample.utils.DpUtil;
+//import com.vincent.myviewexample.utils.DpUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,7 @@ import java.util.List;
  * @version v1.0
  * @name MyViewExample
  * @page com.vincent.myviewexample.view
- * @class describe
+ * @class describe 注意 这里的所有的单位都为px，这个控件为定制化控件，不做其它屏幕的适配 这里适配屏幕为728*480
  * @date 2018/12/3 14:46
  */
 public class SkinTestResultView extends View {
@@ -43,22 +43,16 @@ public class SkinTestResultView extends View {
         init(context);
     }
 
-    @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        mViewHeight = h;
-        mViewWidth = w;
-        super.onSizeChanged(w, h, oldw, oldh);
-    }
     private static final String TAG = "雷达比例图";
     private Context mContext;
     //圆心x
-    private float mCircleX;
+    private float mCircleX = 358;
     //圆心y
-    private float mCircleY;
-    private float mViewWidth;
-    private float mViewHeight;
+    private float mCircleY = 223;
+    private float mViewWidth = 728;
+    private float mViewHeight = 480;
     //半径
-    private float mCircleRadius = 75f;
+    private float mCircleRadius = 96;
     private int mBgColor;
     private int mStartColor;
     private int mEndColor;
@@ -66,7 +60,7 @@ public class SkinTestResultView extends View {
     private int mCrossLineColor;
     private Paint mCirclePaint;
     private SkinTestResultBean bean;
-    private String mBottomText = "肌肤监测结果";
+    private String mBottomText = "肌肤检测结果";
     private String mTopTag = "皮肤水分";
     private String mLeftTag = "油分";
     private String mBottomTag = "白皙度";
@@ -75,8 +69,10 @@ public class SkinTestResultView extends View {
 
     private void init(Context context) {
         this.mContext = context;
+//        mViewWidth = DpUtil.dp2px(mContext,mViewWidth);
+//        mViewHeight = DpUtil.dp2px(mContext,mViewHeight);
 
-        mCircleRadius = DpUtil.dp2px(mContext,mCircleRadius);
+//        mCircleRadius = DpUtil.dp2px(mContext,mCircleRadius);
         mBgColor = ContextCompat.getColor(mContext, R.color.color_black_000000);
         mStartColor = ContextCompat.getColor(mContext, R.color.color_red_c8148d);
         mEndColor = ContextCompat.getColor(mContext, R.color.color_purple_7a00ab);
@@ -86,15 +82,17 @@ public class SkinTestResultView extends View {
         mCirclePaint.setAntiAlias(true);
         mCirclePaint.setStyle(Paint.Style.FILL_AND_STROKE);
 
-        mBootomTextMarginBottom = DpUtil.dp2px(mContext,mBootomTextMarginBottom);
-        mBottomTextSize = DpUtil.dp2px(mContext,mBottomTextSize);
+//        mBootomTextMarginBottom = DpUtil.dp2px(mContext,mBootomTextMarginBottom);
+//        mBottomTextSize = DpUtil.dp2px(mContext,mBottomTextSize);
+        Typeface tf = Typeface.createFromAsset(mContext.getAssets(),"fonts/NotoSansHans-Black.otf");
         mBottomPaint = new Paint();
         mBottomPaint.setAntiAlias(true);
         mBottomPaint.setTextSize(mBottomTextSize);
+        mBottomPaint.setTypeface(tf);
 
         mTagTextColor = ContextCompat.getColor(mContext, R.color.color_white_ffffff);
-        mTagTextSize =  DpUtil.dp2px(mContext,mTagTextSize);
-        mTagTextMragin = DpUtil.dp2px(mContext,mTagTextMragin);
+//        mTagTextSize =  DpUtil.dp2px(mContext,mTagTextSize);
+//        mTagTextMragin = DpUtil.dp2px(mContext,mTagTextMragin);
         mTagPaint = new Paint();
         mTagPaint.setColor(mTagTextColor);
         mTagPaint.setAntiAlias(true);
@@ -107,7 +105,7 @@ public class SkinTestResultView extends View {
         mValuePaint.setColor(mValueColor);
         mValuePaint.setAlpha(175);
 
-        mNumberTextSize = DpUtil.dp2px(mContext,mNumberTextSize);
+//        mNumberTextSize = DpUtil.dp2px(mContext,mNumberTextSize);
         mNumberTextColor = ContextCompat.getColor(mContext,R.color.color_white_ffffff);
         mNumberPaint = new Paint();
         mNumberPaint.setColor(mNumberTextColor);
@@ -115,53 +113,56 @@ public class SkinTestResultView extends View {
         mNumberPaint.setAntiAlias(true);
 
         mSuggestTextColor = ContextCompat.getColor(mContext,R.color.color_white_ffffff);
-        mSuggestTextSize = DpUtil.dp2px(mContext,mSuggestTextSize);
+//        mSuggestTextSize = DpUtil.dp2px(mContext,mSuggestTextSize);
 //        mSuggestMarginTop = DpUtil.dp2px(mContext, mSuggestMarginTop);
         mSuggestPaint = new Paint();
         mSuggestPaint.setAntiAlias(true);
         mSuggestPaint.setColor(mSuggestTextColor);
         mSuggestPaint.setTextSize(mSuggestTextSize);
 
-        empUpTextSize = DpUtil.dp2px(mContext,empUpTextSize);
-        empUpMarginTop = DpUtil.dp2px(mContext,empUpMarginTop);
+//        empUpTextSize = DpUtil.dp2px(mContext,empUpTextSize);
+//        empUpMarginTop = DpUtil.dp2px(mContext,empUpMarginTop);
 
         mProgressBgStartColor = ContextCompat.getColor(mContext,R.color.color_purple_891247);
         mProgressBgEndColor = ContextCompat.getColor(mContext,R.color.color_purple_17131a);
         mItemProgrfessPaint = new Paint();
-        mItemProgressWidth = DpUtil.dp2px(mContext,mItemProgressWidth);
+//        mItemProgressWidth = DpUtil.dp2px(mContext,mItemProgressWidth);
         mItemProgrfessPaint.setStrokeWidth(mItemProgressWidth);
         //笔头头部圆形
         mItemProgrfessPaint.setStrokeCap(Paint.Cap.ROUND);
         mItemProgrfessPaint.setAntiAlias(true);
         mItemProgrfessPaint.setStyle(Paint.Style.STROKE);
 
-        mProgressMarginRight = DpUtil.dp2px(mContext,mProgressMarginRight);
-        mDifferenceValue = DpUtil.dp2px(mContext,mDifferenceValue);
-        mTargetCircleRadius = DpUtil.dp2px(mContext,mTargetCircleRadius);
-        mExtendValue = DpUtil.dp2px(mContext,mExtendValue);
-        mProgressMargin = DpUtil.dp2px(mContext,mProgressMargin);
+//        mProgressMarginRight = DpUtil.dp2px(mContext,mProgressMarginRight);
+//        mDifferenceValue = DpUtil.dp2px(mContext,mDifferenceValue);
+//        mTargetCircleRadius = DpUtil.dp2px(mContext,mTargetCircleRadius);
+//        mExtendValue = DpUtil.dp2px(mContext,mExtendValue);
+//        mProgressMargin = DpUtil.dp2px(mContext,mProgressMargin);
 
 
         mTargetCirclePaint = new Paint();
         mTargetCirclePaint.setAntiAlias(true);
 
         mProgressTextColor = ContextCompat.getColor(mContext,R.color.color_white_ffffff);
-        mProgressTextSize = DpUtil.dp2px(mContext,mProgressTextSize);
+//        mProgressTextSize = DpUtil.dp2px(mContext,mProgressTextSize);
         mProgressTextPaint = new Paint();
         mProgressTextPaint.setTextSize(mProgressTextSize);
         mProgressTextPaint.setAntiAlias(true);
         mProgressTextPaint.setColor(mProgressTextColor);
     }
 
-    private List<PointF> waterPoints = new ArrayList<>();
-    private List<PointF> whitePoints = new ArrayList<>();
-    private List<PointF> oilPoints = new ArrayList<>();
-    private List<PointF> elasticityPoints = new ArrayList<>();
+//    private List<PointF> waterPoints = new ArrayList<>();
+//    private List<PointF> whitePoints = new ArrayList<>();
+//    private List<PointF> oilPoints = new ArrayList<>();
+//    private List<PointF> elasticityPoints = new ArrayList<>();
 
     private float mTempWaterRatio = 0.0f;
     private float mTempWhiteRatio = 0.0f;
     private float mTempOilRatio = 0.0f;
     private float mTempElasticityRatio = 0.0f;
+
+    //移动之后的圆心
+    private float mMoveCircleX = 358;
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -174,24 +175,26 @@ public class SkinTestResultView extends View {
         if(moveFinish){
             //平移结束，开始绘制右边的文字
             drawRightTopSuggestText(canvas);
-            float mStartX = mRightTagTextX - DpUtil.dp2px(mContext,2);
+            float mStartX = mRightTagTextX - 4;
             float mProgressWidth = (mViewWidth - mStartX - mProgressMarginRight - mProgressMargin)/2;
-            float mStartY = mCircleY + DpUtil.dp2px(mContext,30);
+            float mStartY = mCircleY + 32;
 //            waterPoints.clear();
-            drawItemProgressCurve(canvas,mTopTag,mTempWaterRatio,waterRatio,mProgressWidth,mStartX,mStartY,waterPoints);
+            drawItemProgressCurve(canvas,mTopTag,mTempWaterRatio,waterRatio,mProgressWidth,mStartX,mStartY);
 
             mStartX = mStartX + mProgressWidth + mProgressMargin/2;
 //            whitePoints.clear();
-            drawItemProgressCurve(canvas,mBottomTag,mTempWhiteRatio,whiteRatio,mProgressWidth,mStartX,mStartY,whitePoints);
+            drawItemProgressCurve(canvas,mBottomTag,mTempWhiteRatio,whiteRatio,mProgressWidth,mStartX,mStartY);
 
-            mStartX = mRightTagTextX - DpUtil.dp2px(mContext,2);
-            mStartY = mStartY + DpUtil.dp2px(mContext,60);
-            drawItemProgressCurve(canvas,mLeftTag,mTempOilRatio,oilRatio,mProgressWidth,mStartX,mStartY,oilPoints);
+            mStartX = mRightTagTextX - 4;
+            mStartY = mStartY + 64;
+            drawItemProgressCurve(canvas,mLeftTag,mTempOilRatio,oilRatio,mProgressWidth,mStartX,mStartY);
 
             mStartX = mStartX + mProgressWidth + mProgressMargin/2;
-            drawItemProgressCurve(canvas,mLeftTag,mTempElasticityRatio,elasticityRatio,mProgressWidth,mStartX,mStartY,elasticityPoints);
+            drawItemProgressCurve(canvas,mRightTag,mTempElasticityRatio,elasticityRatio,mProgressWidth,mStartX,mStartY);
         }
     }
+
+
 
     /**
      * 绘制背景
@@ -199,29 +202,30 @@ public class SkinTestResultView extends View {
      */
     private void drawBgCircle(Canvas canvas) {
         if(mMoveLeft){
-            mCircleX = mViewWidth/2.0f - mTempMargin;
+            mMoveCircleX = mCircleX - mTempMargin;
         }else {
-            mCircleX = mViewWidth/2.0f + mTempMargin;
+            mMoveCircleX = mCircleX + mTempMargin;
         }
-        mCircleY = mViewHeight/2.0f;
-        LinearGradient lg=new LinearGradient(mCircleX,mCircleY - mCircleRadius,
-                mCircleX,mCircleY + mCircleRadius,mStartColor,mEndColor,Shader.TileMode.CLAMP);
+//        mCircleY = mViewHeight/2.0f;
+        LinearGradient lg=new LinearGradient(mMoveCircleX,mCircleY - 30,
+                mMoveCircleX,mCircleY + 30,mStartColor,mEndColor,Shader.TileMode.CLAMP);
         mCirclePaint.setShader(lg);
-        canvas.drawCircle(mCircleX,mCircleY,mCircleRadius,mCirclePaint);
+        canvas.drawCircle(mMoveCircleX,mCircleY,mCircleRadius,mCirclePaint);
     }
 
     private float mBottomTextSize = 14;
     //底部文字距离View底部的距离
-    private float mBootomTextMarginBottom = 30;
+    private float mBootomTextMarginBottom = 68;
     private Paint mBottomPaint;
 
     private void drawBottomText(Canvas canvas) {
         Rect mBottomTextRect = new Rect();
         mBottomPaint.getTextBounds(mBottomText,0,mBottomText.length(),mBottomTextRect);
-        LinearGradient lg = new LinearGradient(mCircleX - mBottomTextRect.width()/2,mViewHeight - mBootomTextMarginBottom,
-                mCircleX + mBottomTextRect.width()/2,mViewHeight - mBootomTextMarginBottom,mStartColor,mEndColor,Shader.TileMode.CLAMP);
+        //水平渐变
+        LinearGradient lg = new LinearGradient(mViewWidth/2 - mBottomTextRect.width()/2 + mBottomTextRect.width()/3,mViewHeight - mBootomTextMarginBottom - mBottomTextRect.height(),
+                mViewWidth/2 - mBottomTextRect.width()/2 + mBottomTextRect.width()*2/3,mViewHeight - mBootomTextMarginBottom - mBottomTextRect.height(),mStartColor,mEndColor,Shader.TileMode.CLAMP);
         mBottomPaint.setShader(lg);
-        canvas.drawText(mBottomText,mViewWidth/2 - mBottomTextRect.width()/2,mViewHeight - mBootomTextMarginBottom,mBottomPaint);
+        canvas.drawText(mBottomText,mViewWidth/2 - mBottomTextRect.width()/2,mViewHeight - mBootomTextMarginBottom - mBottomTextRect.height(),mBottomPaint);
     }
 
 
@@ -232,20 +236,21 @@ public class SkinTestResultView extends View {
     //右边的tag文字最右端的x坐标
     private float mRightTagTextX;
     private void drawTagText(Canvas canvas) {
+        mTagPaint.setColor(mTagTextColor);
         Rect mTagTextRect = new Rect();
         mTagPaint.getTextBounds(mTopTag,0,mTopTag.length(),mTagTextRect);
-        canvas.drawText(mTopTag,mCircleX - mTagTextRect.width()/2,mCircleY - mCircleRadius - mTagTextMragin,mTagPaint);
+        canvas.drawText(mTopTag,mMoveCircleX - mTagTextRect.width()/2,mCircleY - mCircleRadius - mTagTextMragin,mTagPaint);
         mTagPaint.getTextBounds(mBottomTag,0,mBottomTag.length(),mTagTextRect);
-        canvas.drawText(mBottomTag,mCircleX - mTagTextRect.width()/2,mCircleY + mCircleRadius + mTagTextRect.height() + mTagTextMragin,mTagPaint);
+        canvas.drawText(mBottomTag,mMoveCircleX - mTagTextRect.width()/2,mCircleY + mCircleRadius + mTagTextRect.height() + mTagTextMragin,mTagPaint);
         mTagPaint.getTextBounds(mLeftTag,0,mLeftTag.length(),mTagTextRect);
-        canvas.drawText(mLeftTag,mCircleX - mCircleRadius -  mTagTextRect.width() - mTagTextMragin,mCircleY + mTagTextRect.height()/2,mTagPaint);
+        canvas.drawText(mLeftTag,mMoveCircleX - mCircleRadius -  mTagTextRect.width() - mTagTextMragin,mCircleY + mTagTextRect.height()/2,mTagPaint);
         mTagPaint.getTextBounds(mRightTag,0,mRightTag.length(),mTagTextRect);
-        mRightTagTextX  = mCircleX + mCircleRadius + mTagTextMragin + mTagPaint.measureText(mRightTag);
-        canvas.drawText(mRightTag,mCircleX + mCircleRadius + mTagTextMragin,mCircleY + mTagTextRect.height()/2,mTagPaint);
+        mRightTagTextX  = mMoveCircleX + mCircleRadius + mTagTextMragin + mTagPaint.measureText(mRightTag);
+        canvas.drawText(mRightTag,mMoveCircleX + mCircleRadius + mTagTextMragin,mCircleY + mTagTextRect.height()/2,mTagPaint);
         //绘制两条垂直交叉的线
         mTagPaint.setColor(mCrossLineColor);
-        canvas.drawLine(mCircleX,mCircleY - mCircleRadius,mCircleX,mCircleY +mCircleRadius,mTagPaint);
-        canvas.drawLine(mCircleX - mCircleRadius,mCircleY,mCircleX + mCircleRadius,mCircleY,mTagPaint);
+        canvas.drawLine(mMoveCircleX,mCircleY - mCircleRadius,mMoveCircleX,mCircleY +mCircleRadius,mTagPaint);
+        canvas.drawLine(mMoveCircleX - mCircleRadius,mCircleY,mMoveCircleX + mCircleRadius,mCircleY,mTagPaint);
     }
 
     private Paint mValuePaint;
@@ -267,27 +272,27 @@ public class SkinTestResultView extends View {
         if(bean != null){
             mValuePath.reset();
             topYValue = mCircleY - mCircleRadius * waterRatio * mTempRatio ;
-            leftXValue = mCircleX - mCircleRadius * oilRatio * mTempRatio;
+            leftXValue = mMoveCircleX - mCircleRadius * oilRatio * mTempRatio;
             bottomYValue = mCircleY + mCircleRadius * whiteRatio * mTempRatio;
-            rightXValue = mCircleX + mCircleRadius * elasticityRatio * mTempRatio;
+            rightXValue = mMoveCircleX + mCircleRadius * elasticityRatio * mTempRatio;
             if(topYValue < mCircleY - mCircleRadius){
                 topYValue = mCircleY - mCircleRadius;
             }
-            if(leftXValue < mCircleX - mCircleRadius){
-                topYValue = mCircleX - mCircleRadius;
+            if(leftXValue < mMoveCircleX - mCircleRadius){
+                topYValue = mMoveCircleX - mCircleRadius;
             }
             if(bottomYValue > mCircleY + mCircleRadius){
                 topYValue = mCircleY + mCircleRadius;
             }
-            if(rightXValue > mCircleX + mCircleRadius){
-                topYValue = mCircleX + mCircleRadius;
+            if(rightXValue > mMoveCircleX + mCircleRadius){
+                topYValue = mMoveCircleX + mCircleRadius;
             }
-            mValuePath.moveTo(mCircleX,topYValue);
-            mValuePath.lineTo(mCircleX,topYValue);
+            mValuePath.moveTo(mMoveCircleX,topYValue);
+            mValuePath.lineTo(mMoveCircleX,topYValue);
             mValuePath.lineTo(leftXValue,mCircleY);
-            mValuePath.lineTo(mCircleX,bottomYValue);
+            mValuePath.lineTo(mMoveCircleX,bottomYValue);
             mValuePath.lineTo(rightXValue,mCircleY);
-            mValuePath.lineTo(mCircleX,topYValue);
+            mValuePath.lineTo(mMoveCircleX,topYValue);
             mValuePath.close();
             canvas.drawPath(mValuePath,mValuePaint);
 //            Log.d(TAG, "半径:"+mCircleRadius+" waterRatio:"+waterRatio + " oilRatio:"+oilRatio
@@ -309,7 +314,7 @@ public class SkinTestResultView extends View {
         Rect mNumberRect = new Rect();
         String mValueStr = String.valueOf(mTempNumber);
         mNumberPaint.getTextBounds(mValueStr,0,mValueStr.length(),mNumberRect);
-        canvas.drawText(mValueStr,mCircleX - mNumberPaint.measureText(mValueStr)/2,mCircleY + mNumberRect.height()/2,mNumberPaint);
+        canvas.drawText(mValueStr,mMoveCircleX - mNumberPaint.measureText(mValueStr)/2,mCircleY + mNumberRect.height()/2,mNumberPaint);
     }
 
 
@@ -343,10 +348,6 @@ public class SkinTestResultView extends View {
             }
         });
         mValue = 75;
-        waterPoints.clear();
-        whitePoints.clear();
-        oilPoints.clear();
-        elasticityPoints.clear();
         startAnimDraw();
         addAnimator.start();
     }
@@ -364,7 +365,7 @@ public class SkinTestResultView extends View {
     private boolean moveFinish = false;
 
     private void startMove(){
-        moveTarget = mViewWidth /4;
+        moveTarget = 211;//固定值
         moveAnim = ObjectAnimator.ofFloat(this, "moveTarget", 0.0f, moveTarget);
         moveAnim.setDuration(animTime);
         moveAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
@@ -394,13 +395,14 @@ public class SkinTestResultView extends View {
     private Paint mSuggestPaint;
     private int mSuggestTextColor;
     private float mSuggestTextSize = 16;
-//    private float mSuggestMarginTop = 30;
+    private float mSuggestMarginTop = 115;
     private Rect mSuggestTextRect = new Rect();
     private String empUp = "EMP UP";
     private float empUpTextSize = 30;
     // emp up 文字距离顶部的建议的间距
-    private float empUpMarginTop = 30;
+    private float empUpMarginTop = 29;
     private float temSuggestTextHeight;
+    private float temSuggestTextWidth;
 
     /**
      * 绘制有上部分的结果建议文字
@@ -411,13 +413,13 @@ public class SkinTestResultView extends View {
             mSuggestPaint.setTextSize(mSuggestTextSize);
             mSuggestPaint.getTextBounds(suggestText,0,suggestText.length(),mSuggestTextRect);
             temSuggestTextHeight = mSuggestTextRect.height();
-            canvas.drawText(suggestText,mViewWidth /2 /*- mSuggestPaint.measureText(suggestText)/2*/,
-                    mCircleY/2 + mSuggestTextRect.height()/* + mSuggestMarginTop*/,mSuggestPaint);
+            temSuggestTextWidth = mSuggestTextRect.width();
+            canvas.drawText(suggestText,mViewWidth /2, mSuggestMarginTop + mSuggestTextRect.height(),mSuggestPaint);
         }
         mSuggestPaint.setTextSize(empUpTextSize);
         mSuggestPaint.getTextBounds(empUp,0,empUp.length(),mSuggestTextRect);
-        canvas.drawText(empUp,mViewWidth * 3/4 - mSuggestPaint.measureText(empUp)/2,
-                mCircleY/2 + temSuggestTextHeight + empUpMarginTop + mSuggestTextRect.height(),mSuggestPaint);
+        canvas.drawText(empUp,mViewWidth /2 + temSuggestTextWidth/2 - mSuggestPaint.measureText(empUp)/2,
+                mSuggestMarginTop + temSuggestTextHeight * 2 + empUpMarginTop,mSuggestPaint);
     }
     //绘制贝塞尔曲线进度条
     private Paint mItemProgrfessPaint;
@@ -431,7 +433,7 @@ public class SkinTestResultView extends View {
     private float mProgressTextSize = 10;
     private int mProgressTextColor;
     //目标圆的半径
-    private float mTargetCircleRadius = 5;
+    private float mTargetCircleRadius = 10;
     //贝塞尔曲线进度的最大值和最小值的差值
     private float mDifferenceValue = 30;
     //贝塞尔曲线的控制点的延伸值
@@ -457,13 +459,13 @@ public class SkinTestResultView extends View {
      * @param mProgressWidth 进度在View上的实际宽度
      * @param mStartX 起点x坐标
      * @param mStartY 起点y坐标
-     * @param pathPoints 路径点集合
      */
-    private void drawItemProgressCurve(Canvas canvas,String tagText,float ratio,float targetRatio,float mProgressWidth,float mStartX,float mStartY,List<PointF> pathPoints) {
+    private void drawItemProgressCurve(Canvas canvas,String tagText,float ratio,
+                                       float targetRatio,float mProgressWidth,float mStartX,float mStartY) {
         float mTempProgressCircleX = 0.0f;
         float mTempProgressCircleY = 0.0f;
         float mEndX = mStartX + mProgressWidth;
-        float mEndY = mStartY + DpUtil.dp2px(mContext,15);
+        float mEndY = mStartY + 10;
         mBgProgressPath.reset();
         mBgProgressPath.moveTo(mStartX,mStartY);
         float mControl1X = mStartX + mProgressWidth * 0.25f;
@@ -478,18 +480,10 @@ public class SkinTestResultView extends View {
         //计算真实比例
         PathMeasure pathMeasure = new PathMeasure(mBgProgressPath,false);
         float length = pathMeasure.getLength();
-        /*for (int i = 0;i<length;i++){
-            float[] pos = new float[2];
-            float[] tan = new float[2];
-            pathMeasure.getPosTan(i,pos,tan);
-            pathPoints.add(new PointF(pos[0],pos[1]));
-        }*/
         float realLength = length * targetRatio;
         float[] pos = new float[2];
         float[] tan = new float[2];
         pathMeasure.getPosTan(realLength * ratio,pos,tan);
-//        mTempProgressCircleX = pathPoints.get((int) (pathPoints.size() * ratio)).x;
-//        mTempProgressCircleY = pathPoints.get((int) (pathPoints.size() * ratio)).y;
         mTempProgressCircleX = pos[0];
         mTempProgressCircleY = pos[1];
         RadialGradient lgCircle = new RadialGradient(mTempProgressCircleX,mTempProgressCircleY,mTargetCircleRadius*3/4,mEndColor,mStartColor,Shader.TileMode.CLAMP);
@@ -499,11 +493,11 @@ public class SkinTestResultView extends View {
         canvas.drawCircle(mTempProgressCircleX,mTempProgressCircleY,mTargetCircleRadius,mTargetCirclePaint);
         mTargetCirclePaint.setStyle(Paint.Style.STROKE);
         mTargetCirclePaint.setStrokeWidth(1);
-        canvas.drawCircle(mTempProgressCircleX,mTempProgressCircleY,mTargetCircleRadius + DpUtil.dp2px(mContext,5),mTargetCirclePaint);
+        canvas.drawCircle(mTempProgressCircleX,mTempProgressCircleY,mTargetCircleRadius + 5,mTargetCirclePaint);
         String ratioStr = String.valueOf((int)(ratio * 100));
         mProgressTextPaint.getTextBounds(tagText,0,tagText.length(),mProgressTextRect);
         //这里的10 表示间距
-        float textWidth = mProgressTextPaint.measureText(tagText) + mProgressTextPaint.measureText(ratioStr) + DpUtil.dp2px(mContext,10);
+        float textWidth = mProgressTextPaint.measureText(tagText) + mProgressTextPaint.measureText(ratioStr) + 20;
         canvas.drawText(ratioStr,(mConrtol2X + mStartX)/2 + textWidth/2 - mProgressTextPaint.measureText(ratioStr),mStartY - mProgressTextRect.height(),mProgressTextPaint);
         canvas.drawText(tagText,(mConrtol2X + mStartX)/2 - textWidth/2,mStartY - mProgressTextRect.height(),mProgressTextPaint);
     }
@@ -527,7 +521,7 @@ public class SkinTestResultView extends View {
                 mTempWhiteRatio = whiteRatio * mTempProgress;
                 mTempOilRatio = oilRatio * mTempProgress;
                 mTempElasticityRatio = elasticityRatio * mTempProgress;
-                Log.e(TAG, "startAnimDraw -> onAnimationUpdate: " + mTempProgress );
+//                Log.e(TAG, "startAnimDraw -> onAnimationUpdate: " + mTempProgress );
                 invalidate();
             }
         });
@@ -538,5 +532,58 @@ public class SkinTestResultView extends View {
 
     public void setMoveTarget(float mTagTextMragin) {
         this.moveTarget = mTagTextMragin;
+    }
+
+    /**
+     * view的大小控制
+     */
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        setMeasuredDimension(measureWidth(widthMeasureSpec),
+                measureHeight(heightMeasureSpec));
+    }
+
+    /**
+     * 测量高度
+     * @param measureSpec 测量模式
+     * @return View height
+     */
+    private int measureHeight(int measureSpec) {
+        int result = 0;
+        int mode = MeasureSpec.getMode(measureSpec);
+        int size = MeasureSpec.getSize(measureSpec);
+
+        if (mode == MeasureSpec.EXACTLY) {
+            result = size;
+        } else {
+            result = (int) mViewHeight;
+            if (mode == MeasureSpec.AT_MOST) {
+                result = Math.min(result, size);
+            }
+        }
+        return result;
+
+    }
+
+    /**
+     * 测量宽度
+     * @param measureSpec 测量模式
+     * @return View width
+     */
+    private int measureWidth(int measureSpec) {
+        int result = 0;
+        int mode = MeasureSpec.getMode(measureSpec);
+        int size = MeasureSpec.getSize(measureSpec);
+
+        if (mode == MeasureSpec.EXACTLY) {
+            result = size;
+        } else {
+            result = (int) mViewWidth;//根据自己的需要更改
+            if (mode == MeasureSpec.AT_MOST) {
+                result = Math.min(result, size);
+            }
+        }
+        return result;
+
     }
 }

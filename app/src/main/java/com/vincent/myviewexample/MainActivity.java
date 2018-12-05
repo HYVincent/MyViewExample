@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.vincent.myviewexample.bean.ProgressBean;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         progressLineView.setMoveValueChangeListener(new ProgressLineView.MoveValueChangeListener() {
             @Override
             public void onMoveChange(float value) {
-                Log.d("当前值---》", "onMoveChange: "+value);
+//                Log.d("当前值---》", "onMoveChange: "+value);
             }
         });
         progressLineView.setStartTouch(true);

@@ -5,12 +5,14 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationSet;
 import android.view.animation.TranslateAnimation;
 
+import com.vincent.myviewexample.utils.ScreenUtils;
 import com.vincent.myviewexample.view.MyCircleView;
 import com.vincent.myviewexample.bean.ProgressBean;
 import com.vincent.myviewexample.view.ProgressLineView;
@@ -22,6 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String TAG = "首页";
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -97,10 +101,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 //        findViewById(R.id.btn_water).performClick();
-//        startActivity(new Intent(MainActivity.this,Test3Activity.class));
 //        startActivity(new Intent(MainActivity.this,Test1Activity.class));
 //        startActivity(new Intent(MainActivity.this,WaterActivity.class));
+//        startActivity(new Intent(MainActivity.this,Test3Activity.class));
         startActivity(new Intent(MainActivity.this,Test4Activity.class));
+//        startActivity(new Intent(MainActivity.this,Test5Activity.class));
+        Log.d(TAG, "onCreate: "+ScreenUtils.getScreenWidth(MainActivity.this)+ " " + ScreenUtils.getScreenHeight(MainActivity.this));
     }
 
     private void initProgressData(ProgressView progressView) {
